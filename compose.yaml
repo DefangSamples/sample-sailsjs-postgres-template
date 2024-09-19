@@ -1,0 +1,22 @@
+services:
+  app:
+    restart: unless-stopped
+    build: ./app
+    ports:
+      - target: 1337
+        published: 1337
+        mode: ingress
+    environment:
+      DATABASE_URL:
+      SESSION_SECRET:
+    command: ["sails", "lift", "--prod"]
+    networks:
+      - app-network
+    #deploy:
+    #  resources:
+    #    reservations:
+    #      memory: 256M
+
+networks:
+  app-network:
+    driver: bridge
